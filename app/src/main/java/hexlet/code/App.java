@@ -6,7 +6,7 @@ public class App {
 
     public static void main(String[] args) {
         Javalin app = getApp();
-        app.start(1313);
+        app.start(5000);
     }
 
     public static Javalin getApp() {
