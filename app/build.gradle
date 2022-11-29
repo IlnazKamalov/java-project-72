@@ -1,0 +1,36 @@
+import com.sun.tools.javac.Main
+
+plugins {
+    id 'application'
+    id 'checkstyle'
+}
+
+group 'hexlet.code'
+version '1.0-SNAPSHOT'
+
+application {
+    mainClass = 'hexlet.code.App'
+}
+
+compileJava {
+    options.release = 17
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.9.0'
+    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.9.0'
+    implementation 'io.javalin:javalin:5.2.0'
+    implementation 'org.slf4j:slf4j-simple:2.0.4'
+}
+
+test {
+    useJUnitPlatform()
+}
+
+checkstyle {
+    toolVersion '9.2.1'
+}
