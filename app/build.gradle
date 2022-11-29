@@ -35,5 +35,19 @@ checkstyle {
     toolVersion '9.2.1'
 }
 
+jar {
+    manifest {
+        attributes(
+                'Main-Class': 'hexlet.code.App'
+        )
+    }
+    from {
+        configurations.runtimeClasspath.collect {
+            it.isDirectory() ? it : zipTree(it)
+        }
+    }
+    duplicatesStrategy(DuplicatesStrategy.EXCLUDE)
+}
+
 task stage(dependsOn: ['clean', 'installDist'])
 installDist.mustRunAfter clean

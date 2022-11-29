@@ -6,12 +6,12 @@ public class App {
 
     public static void main(String[] args) {
         Javalin app = getApp();
-        app.start();
+        app.start(1313);
     }
 
     public static Javalin getApp() {
-        Javalin app = Javalin.create().start(1313);
-        app.get("/", ctx -> ctx.result("Hello, Barmaley!"));
+        Javalin app = Javalin.create()
+                .get("/", ctx -> ctx.result("Hello, World!"));
         return app;
     }
 }
