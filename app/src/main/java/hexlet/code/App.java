@@ -6,12 +6,17 @@ public class App {
 
     public static void main(String[] args) {
         Javalin app = getApp();
-        app.start(7070);
+        int port = getPort();
+        app.start(port);
     }
 
     public static Javalin getApp() {
-        Javalin app = Javalin.create()
+        return Javalin.create()
                 .get("/", ctx -> ctx.result("Hello, World!"));
-        return app;
+    }
+
+    private static int getPort() {
+        String port = System.getenv().getOrDefault("PORT", "1313");
+        return Integer.parseInt(port);
     }
 }
