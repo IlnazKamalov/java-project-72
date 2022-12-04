@@ -88,9 +88,8 @@ jar {
                 'Main-Class': 'hexlet.code.App'
         )
     }
-    from {
-        (configurations.runtime).collect {
-            it.isDirectory() ? it : zipTree(it)
-        }
-    }
+    //from {
+    //    (configurations.runtime).collect {it.isDirectory() ? it : zipTree(it)
+    //    }
+    //}
 }
