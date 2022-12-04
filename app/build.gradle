@@ -82,16 +82,16 @@ task generateMigration(type: JavaExec) {
     mainClass = 'hexlet.code.GenerateDbMigration'
 }
 
-jar {
-    manifest {
-        attributes(
-                'Main-Class': 'hexet.code.App'
-        )
-    }
-    from {
-        (configurations.runtime).collect {
-            it.isDirectory() ? it : zipTree(it)
-        }
-    }
-    duplicatesStrategy(DuplicatesStrategy.EXCLUDE)
-}
+//jar {
+//    manifest {
+//        attributes(
+//                'Main-Class': 'hexet.code.App'
+//        )
+//    }
+//    from {
+//        (configurations.runtime).collect {
+//            it.isDirectory() ? it : zipTree(it)
+//        }
+//    }
+//    duplicatesStrategy(DuplicatesStrategy.EXCLUDE)
+//}
