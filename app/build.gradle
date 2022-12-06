@@ -86,16 +86,16 @@ configurations {
     runtime
 }
 
-jar {
-    manifest {
-        attributes(
-                'Main-Class': 'hexlet.code.App'
-        )
-    }
-    from {
-        (configurations.runtime).collect {
-            it.isDirectory() ? it : zipTree(it)
-        }
-    }
-    duplicatesStrategy(DuplicatesStrategy.EXCLUDE)
-}
+//jar {
+//    manifest {
+//        attributes(
+//                'Main-Class': 'hexlet.code.App'
+//        )
+//    }
+//    from {
+//        (configurations.runtime).collect {
+//            it.isDirectory() ? it : zipTree(it)
+//        }
+//    }
+//    duplicatesStrategy(DuplicatesStrategy.EXCLUDE)
+//}

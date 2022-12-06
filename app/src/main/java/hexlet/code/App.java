@@ -17,10 +17,17 @@ import static io.javalin.apibuilder.ApiBuilder.get;
 
 public class App {
 
-    public static void main(String[] args) {
-        Javalin app = getApp();
-        int port = getPort();
-        app.start(port);
+    private static int getPort() {
+        String port = System.getenv().getOrDefault("PORT", "1313");
+        return Integer.parseInt(port);
+    }
+
+    private static String getMode() {
+        return System.getenv().getOrDefault("APP_ENV", "development");
+    }
+
+    private static boolean isProduction() {
+        return getMode().equals("production");
     }
 
     private static TemplateEngine getTemplateEngine() {
@@ -34,6 +41,16 @@ public class App {
         templateEngine.addDialect(new Java8TimeDialect());
 
         return templateEngine;
+    }
+
+    private static void addRoutes(Javalin app) {
+        app.get("/", RootController.welcome);
+        app.routes(() -> path("urls", () -> {
+            post(UrlController.addUrl);
+            get(UrlController.showUrls);
+            get("{id}", UrlController.showUrl);
+            post("{id}/checks", UrlController.checkUrl);
+        }));
     }
 
     public static Javalin getApp() {
@@ -55,26 +72,9 @@ public class App {
         return app;
     }
 
-    private static int getPort() {
-        String port = System.getenv().getOrDefault("PORT", "1313");
-        return Integer.parseInt(port);
-    }
-
-    private static String getMode() {
-        return System.getenv().getOrDefault("APP_ENV", "development");
-    }
-
-    private static boolean isProduction() {
-        return getMode().equals("production");
-    }
-
-    private static void addRoutes(Javalin app) {
-        app.get("/", RootController.welcome);
-        app.routes(() -> path("urls", () -> {
-            post(UrlController.addUrl);
-            get(UrlController.showUrls);
-            get("{id}", UrlController.showUrl);
-            post("{id}/checks", UrlController.checkUrl);
-        }));
+    public static void main(String[] args) {
+        Javalin app = getApp();
+        int port = getPort();
+        app.start(port);
     }
 }
