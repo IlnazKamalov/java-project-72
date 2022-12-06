@@ -127,7 +127,6 @@ public class UrlController {
 
             ctx.sessionAttribute("flash", "Страница успешно проверена");
             ctx.sessionAttribute("flash-type", "success");
-
         } catch (UnirestException e) {
             ctx.sessionAttribute("flash", "Страница недоступна");
             ctx.sessionAttribute("flash-type", "danger");

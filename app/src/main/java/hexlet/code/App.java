@@ -11,9 +11,7 @@ import org.thymeleaf.TemplateEngine;
 import org.thymeleaf.extras.java8time.dialect.Java8TimeDialect;
 import org.thymeleaf.templateresolver.ClassLoaderTemplateResolver;
 
-import static io.javalin.apibuilder.ApiBuilder.path;
-import static io.javalin.apibuilder.ApiBuilder.get;
-import static io.javalin.apibuilder.ApiBuilder.post;
+import static io.javalin.apibuilder.ApiBuilder.*;
 
 public class App {
 
@@ -21,6 +19,19 @@ public class App {
         Javalin app = getApp();
         int port = getPort();
         app.start(port);
+    }
+
+    private static TemplateEngine getTemplateEngine() {
+        ClassLoaderTemplateResolver classLoaderTemplateResolver = new ClassLoaderTemplateResolver();
+        classLoaderTemplateResolver.setPrefix("/templates/");
+        classLoaderTemplateResolver.setSuffix(".html");
+
+        TemplateEngine templateEngine = new TemplateEngine();
+        templateEngine.addTemplateResolver(classLoaderTemplateResolver);
+        templateEngine.addDialect(new LayoutDialect());
+        templateEngine.addDialect(new Java8TimeDialect());
+
+        return templateEngine;
     }
 
     public static Javalin getApp() {
@@ -45,20 +56,6 @@ public class App {
     private static int getPort() {
         String port = System.getenv().getOrDefault("PORT", "1313");
         return Integer.parseInt(port);
-    }
-
-    private static TemplateEngine getTemplateEngine() {
-        TemplateEngine templateEngine = new TemplateEngine();
-
-        ClassLoaderTemplateResolver classLoaderTemplateResolver = new ClassLoaderTemplateResolver();
-        classLoaderTemplateResolver.setPrefix("/templates/");
-        //classLoaderTemplateResolver.setSuffix(".html");
-
-        templateEngine.addTemplateResolver(classLoaderTemplateResolver);
-        templateEngine.addDialect(new LayoutDialect());
-        templateEngine.addDialect(new Java8TimeDialect());
-
-        return templateEngine;
     }
 
     private static String getMode() {
