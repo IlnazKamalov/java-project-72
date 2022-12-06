@@ -65,6 +65,7 @@ public class UrlController {
         }
 
         String hostName = parsedUrl.getProtocol() + "://" + parsedUrl.getAuthority();
+
         Url url = new QUrl()
                 .name.equalTo(hostName)
                 .findOne();

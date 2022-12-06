@@ -48,11 +48,12 @@ public class App {
     }
 
     private static TemplateEngine getTemplateEngine() {
+        TemplateEngine templateEngine = new TemplateEngine();
+
         ClassLoaderTemplateResolver classLoaderTemplateResolver = new ClassLoaderTemplateResolver();
         classLoaderTemplateResolver.setPrefix("/templates/");
-        classLoaderTemplateResolver.setSuffix(".html");
+        //classLoaderTemplateResolver.setSuffix(".html");
 
-        TemplateEngine templateEngine = new TemplateEngine();
         templateEngine.addTemplateResolver(classLoaderTemplateResolver);
         templateEngine.addDialect(new LayoutDialect());
         templateEngine.addDialect(new Java8TimeDialect());

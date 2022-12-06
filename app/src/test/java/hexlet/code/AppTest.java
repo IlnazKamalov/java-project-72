@@ -7,12 +7,7 @@ import kong.unirest.core.HttpResponse;
 import kong.unirest.core.Unirest;
 import okhttp3.mockwebserver.MockResponse;
 import okhttp3.mockwebserver.MockWebServer;
-
-import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.AfterAll;
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.*;
 
 import java.io.IOException;
 import java.nio.file.Files;
@@ -70,9 +65,18 @@ class AppTest {
         HttpResponse<String> response = Unirest
                 .get(url)
                 .asString();
-        String content = response.getBody();
 
         assertThat(response.getStatus()).isEqualTo(200);
-        assertThat(content).contains("Анализатор страниц");
+        assertThat(response.getBody()).contains("Анализатор страниц");
+    }
+
+    @Test
+    void testUrl() {
+        HttpResponse<String> response = Unirest
+                .get(url + "/urls")
+                .asString();
+
+        assertThat(response.getStatus()).isEqualTo(200);
+        assertThat(response.getBody()).contains("https://github.com");
     }
 }
