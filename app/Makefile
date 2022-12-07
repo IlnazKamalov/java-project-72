@@ -1,3 +1,5 @@
+.DEFAULT_GOAL := build-run
+
 clean:
 	./gradlew clean
 
@@ -5,13 +7,13 @@ build:
 	./gradlew clean build
 
 install:
-	./gradlew install
+	./gradlew clean install
 
-start:
-    APP_ENV=development ./gradlew run
+run-dist:
+	build/install/app/bin/app
 
-lint:
-	./gradlew checkstyleMain checkstyleTest
+run:
+	./gradlew run
 
 test:
 	./gradlew test
@@ -19,7 +21,21 @@ test:
 report:
 	./gradlew jacocoTestReport
 
-check-updates:
-	./gradlew dependencyUpdates
+lint:
+	./gradlew checkstyleMain checkstyleTest
+
+make :
+	./gradlew clean build --refresh-dependencies
+
+start:
+	APP_ENV=development ./gradlew run
+
+generate-migrations:
+	./gradlew generateMigrations
+
+start-dist:
+	APP_ENV=production build/install/app/bin/app
+
+build-run: build run
 
 .PHONY: build

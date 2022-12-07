@@ -109,7 +109,9 @@ public class UrlController {
 
     public static Handler checkUrl = ctx -> {
         long id = ctx.pathParamAsClass("id", Long.class).getOrDefault(null);
-        Url url = new QUrl().id.equalTo(id).findOne();
+        Url url = new QUrl()
+                .id.equalTo(id)
+                .findOne();
 
         try {
             assert url != null;
@@ -131,7 +133,6 @@ public class UrlController {
             ctx.sessionAttribute("flash", "Страница недоступна");
             ctx.sessionAttribute("flash-type", "danger");
         }
-
         ctx.redirect("/urls/" + id);
     };
 }
