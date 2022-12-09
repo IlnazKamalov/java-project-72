@@ -26,7 +26,6 @@ public final class Url extends Model {
         this.name = name;
     }
 
-
     public List<UrlCheck> getUrlChecks() {
         return urlChecks;
     }

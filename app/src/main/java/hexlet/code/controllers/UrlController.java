@@ -98,7 +98,7 @@ public class UrlController {
         }
 
         List<UrlCheck> urlsChecks = new QUrlCheck()
-                .url.id.equalTo(id)
+                .url.equalTo(url)
                 .orderBy().id.desc()
                 .findList();
 
@@ -115,15 +115,20 @@ public class UrlController {
 
         try {
             assert url != null;
-            HttpResponse<String> response = Unirest.get(url.getName()).asString();
-            Document doc = Jsoup.parse(response.getBody());
+            HttpResponse<String> response = Unirest
+                    .get(url.getName())
+                    .asString();
 
+            Document doc = Jsoup.parse(response.getBody());
             int statusCode = response.getStatus();
             String title = doc.title();
+
             Element descriptionElement = doc.selectFirst("meta[name=description]");
             String description = descriptionElement == null ? "" : descriptionElement.attr("content");
+
             Element h1Element = doc.selectFirst("h1");
             String h1 = h1Element == null ? "" : h1Element.text();
+
             UrlCheck urlCheck = new UrlCheck(statusCode, title, h1, description, url);
             urlCheck.save();
 
