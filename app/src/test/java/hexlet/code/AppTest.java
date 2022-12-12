@@ -73,25 +73,4 @@ class AppTest {
         assertThat(response.getStatus()).isEqualTo(200);
         assertThat(response.getBody()).contains("Анализатор страниц");
     }
-
-    @Test
-    void testUrl() {
-        HttpResponse<String> response = Unirest
-                .get(url + "/urls/2")
-                .asString();
-
-        assertThat(response.getStatus()).isEqualTo(200);
-        assertThat(response.getBody()).contains("https://github.com");
-    }
-
-    @Test
-    void testUrls() {
-        HttpResponse<String> response = Unirest
-                .get(url + "/urls")
-                .asString();
-
-        assertThat(response.getStatus()).isEqualTo(200);
-        assertThat(response.getBody()).contains("https://github.com");
-        assertThat(response.getBody()).contains("https://railway.app");
-    }
 }

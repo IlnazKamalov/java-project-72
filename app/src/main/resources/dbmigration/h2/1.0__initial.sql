@@ -12,7 +12,7 @@ title               varchar(255),
 url_id              bigint,
 created_at          timestamp not null,
 status_code         integer not null,
-description         clob,
+description         text,
 constraint pk_url_check primary key (id)
 );
 

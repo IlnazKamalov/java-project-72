@@ -3,17 +3,13 @@ package hexlet.code;
 import hexlet.code.controllers.RootController;
 import hexlet.code.controllers.UrlController;
 import io.javalin.Javalin;
-import io.javalin.core.validation.ValidationException;
-import io.javalin.http.HttpCode;
 import io.javalin.plugin.rendering.template.JavalinThymeleaf;
 import nz.net.ultraq.thymeleaf.layoutdialect.LayoutDialect;
 import org.thymeleaf.TemplateEngine;
 import org.thymeleaf.extras.java8time.dialect.Java8TimeDialect;
 import org.thymeleaf.templateresolver.ClassLoaderTemplateResolver;
 
-import static io.javalin.apibuilder.ApiBuilder.path;
-import static io.javalin.apibuilder.ApiBuilder.post;
-import static io.javalin.apibuilder.ApiBuilder.get;
+import static io.javalin.apibuilder.ApiBuilder.*;
 
 public class App {
 
@@ -45,6 +41,7 @@ public class App {
 
     private static void addRoutes(Javalin app) {
         app.get("/", RootController.welcome);
+
         app.routes(() -> path("urls", () -> {
             post(UrlController.addUrl);
             get(UrlController.showUrls);
@@ -61,9 +58,6 @@ public class App {
             config.enableWebjars();
             JavalinThymeleaf.configure(getTemplateEngine());
         });
-
-        app.exception(ValidationException.class, (error, ctx) ->
-                ctx.json(error.getErrors()).status(HttpCode.UNPROCESSABLE_ENTITY));
 
         addRoutes(app);
 
