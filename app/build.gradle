@@ -45,7 +45,6 @@ dependencies {
     // old dependencies from jdk 9+
     implementation 'org.glassfish.jaxb:jaxb-runtime:2.3.5'
     implementation 'javax.activation:activation:1.1.1'
-
     implementation 'com.konghq:unirest-java:3.11.09'
 
     testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.8.2'
@@ -54,6 +53,7 @@ dependencies {
     testImplementation 'io.ebean:ebean-test:12.15.1'
     testImplementation 'com.konghq:unirest-java:3.13.6'
     testImplementation 'com.squareup.okhttp3:mockwebserver:4.10.0'
+    testImplementation 'com.konghq:unirest-java:3.13.0:standalone'
 }
 
 testlogger {
@@ -85,17 +85,3 @@ task generateMigration(type: JavaExec) {
 configurations {
     runtime
 }
-
-//jar {
-//    manifest {
-//        attributes(
-//                'Main-Class': 'hexlet.code.App'
-//        )
-//    }
-//    from {
-//        (configurations.runtime).collect {
-//            it.isDirectory() ? it : zipTree(it)
-//        }
-//    }
-//    duplicatesStrategy(DuplicatesStrategy.EXCLUDE)
-//}

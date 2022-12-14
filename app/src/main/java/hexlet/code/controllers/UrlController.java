@@ -104,7 +104,7 @@ public class UrlController {
 
         ctx.attribute("url", url);
         ctx.attribute("urlChecks", urlsChecks);
-        ctx.render("urls/show.html");
+        ctx.render("/urls/show.html");
     };
 
     public static Handler checkUrl = ctx -> {

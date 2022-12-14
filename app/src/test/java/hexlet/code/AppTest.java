@@ -3,21 +3,16 @@ package hexlet.code;
 import io.ebean.DB;
 import io.ebean.Transaction;
 import io.javalin.Javalin;
-import kong.unirest.core.HttpResponse;
-import kong.unirest.core.Unirest;
 import okhttp3.mockwebserver.MockResponse;
 import okhttp3.mockwebserver.MockWebServer;
+import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.AfterAll;
 
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
-
-import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
 class AppTest {
 
@@ -62,15 +57,5 @@ class AppTest {
     @AfterEach
     void afterEach() {
         transaction.rollback();
-    }
-
-    @Test
-    void testRoot() {
-        HttpResponse<String> response = Unirest
-                .get(url)
-                .asString();
-
-        assertThat(response.getStatus()).isEqualTo(200);
-        assertThat(response.getBody()).contains("Анализатор страниц");
     }
 }
