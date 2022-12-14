@@ -12,7 +12,7 @@
 
 <h3>Description:</h3>
 
-<h4>[Page analyzer](https://pageanalyzer.up.railway.app/) is a site that analyzes specified pages for SEO suitability.
+<h3>[Page analyzer](https://pageanalyzer.up.railway.app/) is a site that analyzes specified pages for SEO suitability.
 Project based on Javalin framework. Based on MVC-architecture: working with routing, query handlers and templates, interacting with the database via ORM.
 In development environment (local) used H2 database, in production environment (on Railway) used Postgresql.
 * Bootstrap
@@ -23,4 +23,4 @@ In development environment (local) used H2 database, in production environment (
 * H2
 * Deploy(PaaS)
 * Integration testing
-* Logging</h4>
+* Logging</h3>
