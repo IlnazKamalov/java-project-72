@@ -4,3 +4,6 @@ ebean:
     platform: h2 #, h2, postgres, mysql, oracle, sqlserver, hana, clickhouse, sqlite
     ddlMode: dropCreate # none | dropCreate | migrations | create
     dbName: test
+  ddl:
+    run: true
+    seedSql: seed.sql
