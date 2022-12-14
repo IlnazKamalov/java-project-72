@@ -23,5 +23,4 @@ In development environment (local) used H2 database, in production environment (
 * H2
 * Deploy(PaaS)
 * Integration testing
-* Logging
-</h4>
+* Logging</h4>
