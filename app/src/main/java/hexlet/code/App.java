@@ -31,6 +31,7 @@ public class App {
 
     private static TemplateEngine getTemplateEngine() {
         ClassLoaderTemplateResolver classLoaderTemplateResolver = new ClassLoaderTemplateResolver();
+        classLoaderTemplateResolver.setCharacterEncoding("UTF-8");
         classLoaderTemplateResolver.setPrefix("/templates/");
         classLoaderTemplateResolver.setSuffix(".html");
 
