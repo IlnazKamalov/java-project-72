@@ -7,11 +7,7 @@ import kong.unirest.HttpResponse;
 import kong.unirest.Unirest;
 import okhttp3.mockwebserver.MockResponse;
 import okhttp3.mockwebserver.MockWebServer;
-import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.AfterAll;
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.*;
 
 import java.io.IOException;
 import java.nio.file.Files;
@@ -136,27 +132,9 @@ class AppTest {
         HttpResponse<String> responseWithAlreadyAdd = Unirest
                 .get(baseUrl + "/urls")
                 .asString();
-        String body02 = responseWithAlreadyAdd.getBody();
+        String body = responseWithAlreadyAdd.getBody();
 
-        assertThat(body02).contains("Страница уже существует");
-        assertThat(body02).contains(parsedTestAdd);
-    }
-
-    @Test
-    void testIncorrectAddUrl() {
-        final String incorrectUrl = "trompompom.com";
-
-        HttpResponse<String> response = Unirest
-                .post(baseUrl + "/urls")
-                .field("url", incorrectUrl)
-                .asString();
-
-        assertThat(response.getHeaders().getFirst("Location")).isEqualTo("/");
-
-        HttpResponse<String> response1 = Unirest
-                .get(baseUrl)
-                .asString();
-
-        assertThat(response1.getBody()).contains("Некорректный URL");
+        assertThat(body).contains("Страница уже существует");
+        assertThat(body).contains(parsedTestAdd);
     }
 }
