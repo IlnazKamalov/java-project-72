@@ -1,5 +1,7 @@
 package hexlet.code;
 
+import hexlet.code.domain.Url;
+import hexlet.code.domain.query.QUrl;
 import io.ebean.DB;
 import io.ebean.Transaction;
 import io.javalin.Javalin;
@@ -8,10 +10,10 @@ import kong.unirest.Unirest;
 import okhttp3.mockwebserver.MockResponse;
 import okhttp3.mockwebserver.MockWebServer;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.AfterEach;
 
 import java.io.IOException;
 import java.nio.file.Files;
@@ -158,5 +160,59 @@ class AppTest {
                 .asString();
 
         assertThat(response1.getBody()).contains("Некорректный URL");
+    }
+
+    @Test
+    void testChecksSiteExist() {
+        String testServerSite = server.url("/").toString();
+        String testPageServer = testServerSite.substring(0, testServerSite.length() - 1);
+
+        Unirest
+                .post(baseUrl + "/urls")
+                .field("url", testServerSite)
+                .asString();
+
+        Url actualSite = new QUrl()
+                .name.equalTo(testPageServer)
+                .findOne();
+
+        HttpResponse<String> response = Unirest
+                .get(baseUrl + "/urls/" + (actualSite != null ? actualSite.getId() : 0))
+                .asString();
+
+        assertThat(response.getStatus()).isEqualTo(OK);
+        assertThat(response.getBody()).contains(testPageServer);
+    }
+
+    @Test
+    void testSetCheckTestPageServer() {
+        String testServerSite = server.url("/").toString();
+        String testPageServer = testServerSite.substring(0, testServerSite.length() - 1);
+
+        Unirest
+                .post(baseUrl + "/urls")
+                .field("url", testServerSite)
+                .asString();
+
+        Url actualSite = new QUrl()
+                .name.equalTo(testPageServer)
+                .findOne();
+
+        Unirest
+                .post(baseUrl + "/urls/" + (actualSite != null ? actualSite.getId() : 0) + "/checks")
+                .asString();
+
+        String checkTestPageServer = Unirest
+                .get(baseUrl + "/urls/" + (actualSite != null ? actualSite.getId() : 0))
+                .asString()
+                .getBody();
+
+        final String expectedDescriptionTest = "Description Test";
+        final String expectedTitleTest = "Test title";
+        final String expectedH1Test = "Test body";
+
+        assertThat(checkTestPageServer).contains(expectedDescriptionTest);
+        assertThat(checkTestPageServer).contains(expectedTitleTest);
+        assertThat(checkTestPageServer).contains(expectedH1Test);
     }
 }

@@ -21,7 +21,7 @@ In development environment (local) used H2 database, in production environment (
 * Javalin
 * ORM Ebean
 * Thymeleaf
-* Postgresql
+* PostgreSQL
 * H2
 * Deploy(PaaS)
 * Integration testing
