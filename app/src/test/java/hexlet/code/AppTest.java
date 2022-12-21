@@ -155,11 +155,11 @@ class AppTest {
 
         assertThat(response.getHeaders().getFirst("Location")).isEqualTo("/");
 
-        HttpResponse<String> response1 = Unirest
+        HttpResponse<String>responseIncorrect = Unirest
                 .get(baseUrl)
                 .asString();
 
-        assertThat(response1.getBody()).contains("Некорректный URL");
+        assertThat(responseIncorrect.getBody()).contains("Некорректный URL");
     }
 
     @Test
