@@ -127,6 +127,7 @@ class AppTest {
                 .get(baseUrl + "/urls")
                 .asString();
 
+        assertThat(response.getBody()).contains(testAdd);
         assertThat(response.getBody()).contains(parsedTestAdd);
         assertThat(response.getBody()).contains("Страница успешно добавлена");
 
@@ -140,8 +141,9 @@ class AppTest {
                 .asString();
         String body = responseWithAlreadyAdd.getBody();
 
-        assertThat(body).contains("Страница уже существует");
+        assertThat(body).contains(testAdd);
         assertThat(body).contains(parsedTestAdd);
+        assertThat(body).contains("Страница уже существует");
     }
 
     @Test
