@@ -155,7 +155,7 @@ class AppTest {
 
         assertThat(response.getHeaders().getFirst("Location")).isEqualTo("/");
 
-        HttpResponse<String>responseIncorrect = Unirest
+        HttpResponse<String> responseIncorrect = Unirest
                 .get(baseUrl)
                 .asString();
 
